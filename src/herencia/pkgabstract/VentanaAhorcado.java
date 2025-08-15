@@ -4,9 +4,12 @@
  */
 package herencia.pkgabstract;
 
+
+
+
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class VentanaAhorcado extends JFrame {
 
@@ -44,11 +47,15 @@ public class VentanaAhorcado extends JFrame {
         btnFijo = new JButton("Modo Fijo");
         btnAzar = new JButton("Modo Azar");
         btnNuevo = new JButton("Nuevo juego");
+        JButton btnEditar = new JButton("Editar palabras");
         lblModo = new JLabel("Modo: ");
+
         top.add(btnFijo);
         top.add(btnAzar);
         top.add(btnNuevo);
+        top.add(btnEditar);
         top.add(lblModo);
+
         add(top, BorderLayout.NORTH);
 
         JPanel centro = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -122,6 +129,11 @@ public class VentanaAhorcado extends JFrame {
 
         btnNuevo.addActionListener(e -> iniciarJuegoActual());
 
+        btnEditar.addActionListener(e -> {
+            VentanaEditarPalabras v = new VentanaEditarPalabras(this, admin);
+            v.setVisible(true);
+        });
+
         btnProbar.addActionListener(e -> probarEntrada());
         txtLetra.addActionListener(e -> probarEntrada());
 
@@ -132,11 +144,7 @@ public class VentanaAhorcado extends JFrame {
 
     private void iniciarJuegoActual() {
         if (juegoActual == null) return;
-        if (juegoActual instanceof JuegoAhorcadoAzar) {
-            ((JuegoAhorcadoAzar) juegoActual).jugar();
-        } else {
-            juegoActual.jugar();
-        }
+        juegoActual.jugar();
         actualizarVistaInicio();
     }
 
@@ -190,8 +198,7 @@ public class VentanaAhorcado extends JFrame {
         String er = "Erradas: ";
         for (int i = 0; i < juegoActual.getLetrasUsadas().size(); i++) {
             char ch = juegoActual.getLetrasUsadas().get(i);
-            boolean ok = contiene(juegoActual.getPalabraSecreta(), ch);
-            if (ok) ac += ch + " ";
+            if (contiene(juegoActual.getPalabraSecreta(), ch)) ac += ch + " ";
             else er += ch + " ";
         }
         lblAcertadas.setText(ac);

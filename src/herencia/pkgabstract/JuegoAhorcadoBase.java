@@ -6,6 +6,10 @@ package herencia.pkgabstract;
 
 
 
+
+
+
+
 import java.util.ArrayList;
 
 public abstract class JuegoAhorcadoBase implements JuegoAhorcado {

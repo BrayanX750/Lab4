@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             AdminPalabrasSecretas admin = new AdminPalabrasSecretas();
-            admin.cargarPalabrasIniciales();
+            admin.cargarPalabrasIniciales(); 
 
-            JuegoAhorcadoFijo fijo = new JuegoAhorcadoFijo("PROGRAMACION");
+            JuegoAhorcadoFijo fijo = new JuegoAhorcadoFijo("TELEFONO");
             JuegoAhorcadoAzar azar = new JuegoAhorcadoAzar(admin.getListaPalabras());
 
             VentanaAhorcado ventana = new VentanaAhorcado(fijo, azar, admin);

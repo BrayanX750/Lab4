@@ -4,10 +4,6 @@
  */
 package herencia.pkgabstract;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.Random;
 
