@@ -5,7 +5,7 @@
 package herencia.pkgabstract;
 
 
-public interface JuegoAhorcado {
+public interface JuegoAhorcado  {
     void inicializarPalabraSecreta();
     void jugar();
 }
