@@ -4,41 +4,40 @@
  */
 package herencia.pkgabstract;
 
+
+
+
+
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AdminPalabrasSecretas {
-
     private ArrayList<String> listaPalabras;
-    private Random aleatorio;
 
     public AdminPalabrasSecretas() {
         listaPalabras = new ArrayList<>();
-        aleatorio = new Random();
     }
 
-    public boolean agregarPalabra(String palabra) {
-        if (palabra == null) return false;
-        String p = palabra.trim().toUpperCase();
-        if (p.isEmpty()) return false;
-        if (existePalabra(p)) return false;
-        listaPalabras.add(p);
-        return true;
+    public void cargarPalabrasIniciales() {
+        listaPalabras.clear();
+        listaPalabras.add("JAVA");
+        listaPalabras.add("PROGRAMACION");
+        listaPalabras.add("CODIGO");
+        listaPalabras.add("ALGORITMO");
+        listaPalabras.add("VARIABLE");
+        listaPalabras.add("OBJETO");
+        listaPalabras.add("CLASE");
+        listaPalabras.add("HERENCIA");
+        listaPalabras.add("POLIMORFISMO");
+        listaPalabras.add("INTERFAZ");
     }
 
-    public String obtenerPalabraAzar() {
-        if (listaPalabras.isEmpty()) return "JAVA";
-        int posicion = aleatorio.nextInt(listaPalabras.size());
-        return listaPalabras.get(posicion);
-    }
+    public boolean cambiarPalabra(int index, String nueva) {
+        if (index >= 0 && index < listaPalabras.size()
+                && nueva != null && !nueva.trim().isEmpty()
+                && !listaPalabras.contains(nueva.toUpperCase())) {
 
-    public boolean existePalabra(String palabra) {
-        if (palabra == null) return false;
-        String p = palabra.trim().toUpperCase();
-        for (int i = 0; i < listaPalabras.size(); i++) {
-            if (listaPalabras.get(i).equals(p)) {
-                return true;
-            }
+            listaPalabras.set(index, nueva.toUpperCase());
+            return true;
         }
         return false;
     }

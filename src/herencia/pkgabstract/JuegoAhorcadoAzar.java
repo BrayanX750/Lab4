@@ -4,6 +4,10 @@
  */
 package herencia.pkgabstract;
 
+
+
+
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,56 +16,9 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
     private ArrayList<String> palabras;
     private Random random;
 
-    public JuegoAhorcadoAzar() {
-        palabras = new ArrayList<>();
-        palabras.add("JAVA");
-        palabras.add("AHORCADO");
-        palabras.add("SISTEMAS");
-        palabras.add("MUNDO");
-        palabras.add("BALONCESTO");
-        palabras.add("TACOS");
-        palabras.add("CARLOS");
-        palabras.add("TELEFONO");
-        palabras.add("BOLSON");
-        palabras.add("LENTES");
-
-        random = new Random();
-    }
-
     public JuegoAhorcadoAzar(ArrayList<String> lista) {
-        if (lista == null || lista.isEmpty()) {
-            palabras = new ArrayList<>();
-            palabras.add("JAVA");
-            palabras.add("AHORCADO");
-            palabras.add("SISTEMAS");
-            palabras.add("MUNDO");
-            palabras.add("BALONCESTO");
-            palabras.add("TACOS");
-            palabras.add("CARLOS");
-            palabras.add("TELEFONO");
-            palabras.add("BOLSON");
-            palabras.add("LENTES");
-
-        } else {
-            palabras = new ArrayList<>();
-            for (int i = 0; i < lista.size(); i++) {
-                String w = lista.get(i);
-                if (w != null) {
-                    palabras.add(w.toUpperCase());
-                }
-            }
-        }
+        this.palabras = lista;
         random = new Random();
-    }
-
-    public void agregarPalabra(String palabra) {
-        if (palabra == null) {
-            return;
-        }
-        if (palabra.trim().isEmpty()) {
-            return;
-        }
-        palabras.add(palabra.trim().toUpperCase());
     }
 
     @Override
@@ -71,8 +28,7 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
             return;
         }
         int idx = random.nextInt(palabras.size());
-        String elegida = palabras.get(idx);
-        setPalabraSecreta(elegida);
+        setPalabraSecreta(palabras.get(idx));
     }
 
     @Override
@@ -97,9 +53,7 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
     @Override
     protected boolean verificarLetra(char letra) {
         for (int i = 0; i < palabraSecreta.length(); i++) {
-            if (palabraSecreta.charAt(i) == letra) {
-                return true;
-            }
+            if (palabraSecreta.charAt(i) == letra) return true;
         }
         return false;
     }
