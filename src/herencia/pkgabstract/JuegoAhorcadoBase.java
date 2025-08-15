@@ -5,9 +5,6 @@
 package herencia.pkgabstract;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 
 public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
 
@@ -18,16 +15,13 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     protected ArrayList<Character> letrasUsadas;
     protected ArrayList<String> figuraAhorcado;
 
-    private final Set<Character> letrasUsadasSet;
-
     protected JuegoAhorcadoBase() {
         letrasUsadas = new ArrayList<>();
-        letrasUsadasSet = new HashSet<>();
         figuraAhorcado = new ArrayList<>();
         cargarFiguraDefault();
         resetearIntentos();
         palabraSecreta = "";
-        palabraActual  = "";
+        palabraActual = "";
     }
 
     protected abstract void actualizarPalabraActual(char letra);
@@ -43,7 +37,7 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     protected void setPalabraSecreta(String palabra) {
         if (palabra == null) palabra = "";
         palabraSecreta = palabra.trim().toUpperCase();
-        palabraActual  = construirOcultaDesde(palabraSecreta);
+        palabraActual = construirOcultaDesde(palabraSecreta);
         resetearIntentos();
         limpiarLetrasUsadas();
     }
@@ -52,9 +46,7 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
         char letra = normalizarLetra(entrada);
         if (!Character.isLetter(letra)) return -1;
         if (letraYaUsada(letra)) return -1;
-
         registrarLetra(letra);
-
         boolean acierta = verificarLetra(letra);
         if (acierta) {
             actualizarPalabraActual(letra);
@@ -66,12 +58,16 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     }
 
     protected String construirOcultaDesde(String palabra) {
-        StringBuilder sb = new StringBuilder(palabra.length());
-        for (char c : palabra.toCharArray()) {
-            if (Character.isLetter(c)) sb.append('_');
-            else sb.append(c);
+        String resultado = "";
+        for (int i = 0; i < palabra.length(); i++) {
+            char c = palabra.charAt(i);
+            if (Character.isLetter(c)) {
+                resultado += "_";
+            } else {
+                resultado += c;
+            }
         }
-        return sb.toString();
+        return resultado;
     }
 
     public String getFiguraActual() {
@@ -82,7 +78,7 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     }
 
     protected void resetearIntentos() {
-        this.intentos = this.limiteIntentos;
+        intentos = limiteIntentos;
     }
 
     protected void descontarIntento() {
@@ -91,18 +87,17 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
 
     protected void limpiarLetrasUsadas() {
         letrasUsadas.clear();
-        letrasUsadasSet.clear();
     }
 
     protected void registrarLetra(char letra) {
-        if (!letrasUsadasSet.contains(letra)) {
-            letrasUsadas.add(letra);
-            letrasUsadasSet.add(letra);
-        }
+        letrasUsadas.add(letra);
     }
 
     protected boolean letraYaUsada(char letra) {
-        return letrasUsadasSet.contains(letra);
+        for (int i = 0; i < letrasUsadas.size(); i++) {
+            if (letrasUsadas.get(i) == letra) return true;
+        }
+        return false;
     }
 
     protected char normalizarLetra(char c) {
@@ -116,97 +111,107 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     private void cargarFiguraDefault() {
         figuraAhorcado.clear();
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-                |
-                |
-                |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "    |\n" +
+            "    |\n" +
+            "    |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-                |
-                |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "    |\n" +
+            "    |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-            |   |
-                |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "|   |\n" +
+            "    |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-           /|   |
-                |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "/|  |\n" +
+            "    |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-           /|\\  |
-                |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "/|\\ |\n" +
+            "    |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-           /|\\  |
-           /    |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "/|\\ |\n" +
+            "/   |\n" +
+            "    |\n" +
+            "======="
         );
         figuraAhorcado.add(
-            """
-            +---+
-            |   |
-            O   |
-           /|\\  |
-           / \\  |
-                |
-            ======="""
+            "+---+\n" +
+            "|   |\n" +
+            "O   |\n" +
+            "/|\\ |\n" +
+            "/ \\ |\n" +
+            "    |\n" +
+            "======="
         );
     }
 
-    public String getPalabraSecreta() { return palabraSecreta; }
-    public String getPalabraActual()  { return palabraActual; }
-    public int getIntentos()          { return intentos; }
-    public int getLimiteIntentos()    { return limiteIntentos; }
-    public ArrayList<Character> getLetrasUsadas() { return letrasUsadas; }
-    public ArrayList<String> getFiguraAhorcado()  { return figuraAhorcado; }
+    public String getPalabraSecreta() {
+        return palabraSecreta;
+    }
+
+    public String getPalabraActual() {
+        return palabraActual;
+    }
+
+    public int getIntentos() {
+        return intentos;
+    }
+
+    public int getLimiteIntentos() {
+        return limiteIntentos;
+    }
+
+    public ArrayList<Character> getLetrasUsadas() {
+        return letrasUsadas;
+    }
+
+    public ArrayList<String> getFiguraAhorcado() {
+        return figuraAhorcado;
+    }
 
     public void setLimiteIntentos(int limite) {
         if (limite < 1) limite = 1;
-        this.limiteIntentos = limite;
+        limiteIntentos = limite;
         resetearIntentos();
     }
 
     public void setFiguraAhorcado(ArrayList<String> figura) {
         if (figura != null && figura.size() >= (limiteIntentos + 1)) {
-            this.figuraAhorcado = figura;
+            figuraAhorcado = figura;
         }
     }
 
     protected void setPalabraActual(String nueva) {
-        this.palabraActual = nueva;
+        palabraActual = nueva;
     }
 }
